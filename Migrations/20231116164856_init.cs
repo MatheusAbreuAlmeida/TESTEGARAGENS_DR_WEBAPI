@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Migrations
 {
@@ -47,8 +48,8 @@ namespace TESTEGARAGENS_DR_WEBAPI.Migrations
                     CarroPlaca = table.Column<string>(nullable: true),
                     CarroMarca = table.Column<string>(nullable: true),
                     CarroModelo = table.Column<string>(nullable: true),
-                    DataHoraEntrada = table.Column<string>(nullable: true),
-                    DataHoraSaida = table.Column<string>(nullable: true),
+                    DataHoraEntrada = table.Column<DateTime>(nullable: false),
+                    DataHoraSaida = table.Column<DateTime>(nullable: false),
                     FormaPagamento = table.Column<string>(nullable: true),
                     PrecoTotal = table.Column<string>(nullable: true)
                 },
@@ -115,17 +116,17 @@ namespace TESTEGARAGENS_DR_WEBAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Passagens",
                 columns: new[] { "Id", "CarroMarca", "CarroModelo", "CarroPlaca", "DataHoraEntrada", "DataHoraSaida", "FormaPagamento", "Garagem", "PrecoTotal" },
-                values: new object[] { 1, "Honda", "FIT", "ABC-0O12", "04/09/2023 13:30", "04/09/2023 15:15", "PIX", "EVO01", null });
+                values: new object[] { 1, "Honda", "FIT", "ABC-0O12", new DateTime(2023, 9, 4, 13, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 4, 15, 15, 0, 0, DateTimeKind.Unspecified), "PIX", "EVO01", null });
 
             migrationBuilder.InsertData(
                 table: "Passagens",
                 columns: new[] { "Id", "CarroMarca", "CarroModelo", "CarroPlaca", "DataHoraEntrada", "DataHoraSaida", "FormaPagamento", "Garagem", "PrecoTotal" },
-                values: new object[] { 2, "Toyota", "Yaris", "DKO-3927", "05/09/2023 08:40", "05/09/2023 09:55", "CCR", "EVO01", null });
+                values: new object[] { 2, "Toyota", "Yaris", "DKO-3927", new DateTime(2023, 9, 5, 8, 40, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 5, 9, 55, 0, 0, DateTimeKind.Unspecified), "CCR", "EVO01", null });
 
             migrationBuilder.InsertData(
                 table: "Passagens",
                 columns: new[] { "Id", "CarroMarca", "CarroModelo", "CarroPlaca", "DataHoraEntrada", "DataHoraSaida", "FormaPagamento", "Garagem", "PrecoTotal" },
-                values: new object[] { 3, "Fiat", "Argo", "SPE-9F42", "04/09/2023 10:15", "04/09/2023 11:20", "TAG", "EVO01", null });
+                values: new object[] { 3, "Fiat", "Argo", "SPE-9F42", new DateTime(2023, 9, 4, 10, 15, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 4, 11, 20, 0, 0, DateTimeKind.Unspecified), "TAG", "EVO01", null });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

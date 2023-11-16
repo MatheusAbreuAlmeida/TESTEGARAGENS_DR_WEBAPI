@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TESTEGARAGENS_DR_WEBAPI.Models;
@@ -34,9 +35,9 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
             
             builder.Entity<Passagem>()
                 .HasData(new List<Passagem>(){
-                    new Passagem(1, "EVO01", "ABC-0O12", "Honda","FIT","04/09/2023 13:30","04/09/2023 15:15","PIX",null),
-                    new Passagem(2, "EVO01", "DKO-3927", "Toyota","Yaris","05/09/2023 08:40","05/09/2023 09:55","CCR",null),
-                    new Passagem(3, "EVO01", "SPE-9F42", "Fiat","Argo","04/09/2023 10:15","04/09/2023 11:20","TAG",null),
+                    new Passagem(1, "EVO01", "ABC-0O12", "Honda","FIT",DateTime.Parse("04/09/2023 13:30"),DateTime.Parse("04/09/2023 15:15"),"PIX",null),
+                    new Passagem(2, "EVO01", "DKO-3927", "Toyota","Yaris",DateTime.Parse("05/09/2023 08:40"),DateTime.Parse("05/09/2023 09:55"),"CCR",null),
+                    new Passagem(3, "EVO01", "SPE-9F42", "Fiat","Argo",DateTime.Parse("04/09/2023 10:15"),DateTime.Parse("04/09/2023 11:20"),"TAG",null),
                 });
         }
     }

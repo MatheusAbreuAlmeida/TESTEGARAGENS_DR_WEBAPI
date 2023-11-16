@@ -1,3 +1,5 @@
+using System;
+
 namespace TESTEGARAGENS_DR_WEBAPI.Models
 {
     public class Passagem
@@ -8,8 +10,8 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
                        string carroPlaca, 
                        string carroMarca, 
                        string carroModelo,
-                       string dataHoraEntrada,
-                       string dataHoraSaida,
+                       DateTime dataHoraEntrada,
+                       DateTime dataHoraSaida,
                        string formaPagamento,
                        string precoTotal)
         {
@@ -28,9 +30,17 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
         public string CarroPlaca { get; set; }
         public string CarroMarca { get; set; }
         public string CarroModelo { get; set; }
-        public string DataHoraEntrada { get; set; }
-        public string DataHoraSaida { get; set; }
+        public DateTime DataHoraEntrada { get; set; }
+        public DateTime DataHoraSaida { get; set; }
         public string FormaPagamento { get; set; }
         public string PrecoTotal { get; set; }
+
+        internal object GetCurrentTime(DateTime dataHoraEntrada, DateTime dataHoraSaida)
+        {
+            TimeSpan estadia = dataHoraSaida - dataHoraEntrada;
+                
+            return estadia;
+        }
+
     }
 }

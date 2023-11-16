@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using TESTEGARAGENS_DR_WEBAPI.Data;
+using TESTEGARAGENS_DR_WEBAPI.Dtos;
 using TESTEGARAGENS_DR_WEBAPI.Models;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Controllers
@@ -14,15 +17,19 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
     public class PassagemController : ControllerBase
     {
         private readonly IRepository _repo;
-        public PassagemController(IRepository repo){
+        private readonly IMapper _mapper;
+
+
+        public PassagemController(IRepository repo, IMapper mapper){
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]  
         public IActionResult Get()
         {
             var result = _repo.GetAllPassagens(false);
-            return Ok(result);
+            return Ok(_mapper.Map<IEnumerable<PassagemDTO>>(result));
         }
 
         [HttpGet("{id}")]  
@@ -30,46 +37,57 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         {
             var passagem = _repo.GetAllPassagemById(id,false);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
-            return Ok(passagem);
+
+            var passagemDto =_mapper.Map<PassagemDTO>(passagem);
+
+            return Ok(passagemDto);
         }
 
         [HttpPost]
-        public IActionResult Post(Passagem passagens)
+        public IActionResult Post(PassagemDTO model)
         {
-            _repo.Add(passagens);
+             var passagem = _mapper.Map<Passagem>(model);
+             passagem.DataHoraEntrada = DateTime.Parse(model.DataHoraEntrada);
+             passagem.DataHoraSaida = DateTime.Parse(model.DataHoraSaida);
+
+            _repo.Add(passagem);
             if (_repo.SaveChanges())
             {
-                return Ok(passagens);
+                return Created($"/api/aluno/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
             }
 
             return BadRequest("Erro no registro!");
         }
 
         [HttpPut("{id}")] 
-        public IActionResult Put(int id,Passagem passagens)
+        public IActionResult Put(int id,PassagemDTO model)
         {
             var passagem = _repo.GetAllPassagemById(id,false);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
 
-            _repo.Update(passagens);
+            _mapper.Map(model,passagem);
+
+            _repo.Update(passagem);
             if (_repo.SaveChanges())
             {
-                return Ok(passagens);
+                return Created($"/api/aluno/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
             }
 
             return BadRequest("Registro não atualizado!");
         }
 
         [HttpPatch("{id}")] 
-        public IActionResult Patch(int id,Passagem passagens)
+        public IActionResult Patch(int id,PassagemDTO model)
         {
             var passagem = _repo.GetAllPassagemById(id,false);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
 
-            _repo.Update(passagens);
+            _mapper.Map(model,passagem);
+
+            _repo.Update(passagem);
             if (_repo.SaveChanges())
             {
-                return Ok(passagens);
+                return Created($"/api/aluno/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
             }
 
             return BadRequest("Registro não atualizado!");
