@@ -1,3 +1,5 @@
+using System;
+
 namespace TESTEGARAGENS_DR_WEBAPI.Models
 {
     public class Garagem
@@ -25,5 +27,9 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
         public string Preco_HorasExtra { get; set; }
         public string Preco_Mensalista { get; set; }
 
+        public static implicit operator Garagem(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
