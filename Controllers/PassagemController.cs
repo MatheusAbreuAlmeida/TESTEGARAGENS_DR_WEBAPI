@@ -140,7 +140,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
              var passagem = _mapper.Map<Passagem>(model);
              passagem.DataHoraEntrada = DateTime.Parse(model.DataHoraEntrada);
              passagem.DataHoraSaida = DateTime.Parse(model.DataHoraSaida);
-             passagem.PrecoTotal = _repo.TotalPrizeCalc(passagem);
+             passagem.PrecoTotal = Math.Floor(_repo.TotalPrizeCalc(passagem));
 
             _repo.Add(passagem);
             if (_repo.SaveChanges())
