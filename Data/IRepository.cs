@@ -1,3 +1,4 @@
+using System;
 using TESTEGARAGENS_DR_WEBAPI.Models;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Data
@@ -9,8 +10,13 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
         void Delete<T>(T entity) where T : class;
         bool SaveChanges();
 
-        Passagem[] GetAllPassagens(bool IncludelocalAndPgto);
-        Passagem[] GetAllPassagemById(int id,bool IncludelocalAndPgto);
-
+        decimal TotalPrizeCalc(Passagem passagem);
+        Passagem[] GetAllPassagens(string cod);
+        Passagem[] GetTotalPassagens(string cod);
+        Passagem[] GetTotalPassagensWithTimeSpan(string cod,string startDate, string endDate);
+        Passagem[] GetAllPassagensExitLess(string cod);
+        Passagem[] GetPassagemById(int id,string cod);
+        Garagem[] GetGaragemByCod(string cod);
+        FormaPagamento[] GetFormaPagamentoByCod(string cod);
     }
 }
