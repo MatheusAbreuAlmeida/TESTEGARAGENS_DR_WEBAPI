@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "06k36y9UywO6S`zY[7g"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - C:\dados\volumes\sqlserver:/var/opt/mssql/data
+  testegaragens:
+      build: .
+      container_name: testegaragenswebapi
+      environment:
+        DbServer: "mssql-server"
+        DbPort: "1433"
+        DbUser: "sa"
+        Password: "06k36y9UywO6S`zY[7g"
+        Database: "testegaragensdb"
+      ports:
+          - 5000:80 

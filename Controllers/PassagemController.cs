@@ -5,7 +5,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using TESTEGARAGENS_DR_WEBAPI.Data;
 using TESTEGARAGENS_DR_WEBAPI.Dtos;
 using TESTEGARAGENS_DR_WEBAPI.Models;

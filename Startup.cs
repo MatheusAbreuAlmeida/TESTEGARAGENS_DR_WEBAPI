@@ -31,7 +31,7 @@ namespace TESTEGARAGENS_DR_WEBAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DAL>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+                context => context.UseSqlServer(Configuration.GetConnectionString("MSSQLConnection"))
             );
 
             services.AddControllers()
