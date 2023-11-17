@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TESTEGARAGENS_DR_WEBAPI</name>
+    </assembly>
+    <members>
+        <member name="T:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.#ctor(TESTEGARAGENS_DR_WEBAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="repo"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.Get">
+            <summary>
+            Metodo responsavel por retornar todos os registros de passagens
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetById(System.Int32)">
+            <summary>
+            Metodo responsavel por retornar o registro da passagem a partir do codigo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO">
+            <summary>
+            Esse é o DTO da passagem do veiculo pela garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.Id">
+            <summary>
+            Id da passagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.Garagem">
+            <summary>
+            Garagem que foi registrado a passagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.CarroPlaca">
+            <summary>
+            Placa do veiculo
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.DataHoraEntrada">
+            <summary>
+            Data de entrada do carro na garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.DataHoraSaida">
+            <summary>
+            Data de saida do carro na garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.FormaPagamento">
+            <summary>
+            Forma de pagamento registrado 
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.PrecoTotal">
+            <summary>
+            Preço a ser pago pela estadia do veiculo 
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.Estadia">
+            <summary>
+            Tempo de estadia calculado entre a entrada e saida do veiculo
+            </summary>
+        </member>
+    </members>
+</doc>

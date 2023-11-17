@@ -12,6 +12,9 @@ using TESTEGARAGENS_DR_WEBAPI.Models;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class PassagemController : ControllerBase
@@ -19,19 +22,30 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         private readonly IRepository _repo;
         private readonly IMapper _mapper;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="mapper"></param>
         public PassagemController(IRepository repo, IMapper mapper){
             _repo = repo;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Metodo responsavel por retornar todos os registros de passagens
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]  
         public IActionResult Get()
         {
             var result = _repo.GetAllPassagens(false);
             return Ok(_mapper.Map<IEnumerable<PassagemDTO>>(result));
         }
-
+        /// <summary>
+        /// Metodo responsavel por retornar o registro da passagem a partir do codigo Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]  
         public IActionResult GetById(int id)
         {
