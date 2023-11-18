@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TESTEGARAGENS_DR_WEBAPI.Data;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Migrations
 {
     [DbContext(typeof(DAL))]
-    partial class DALModelSnapshot : ModelSnapshot
+    [Migration("20231118171011_myinitMSSQL")]
+    partial class myinitMSSQL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

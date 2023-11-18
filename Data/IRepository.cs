@@ -10,7 +10,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
         void Delete<T>(T entity) where T : class;
         bool SaveChanges();
 
-        decimal TotalPrizeCalc(Passagem passagem);
+        public string TotalPrizeCalc(Passagem passagem);
         Passagem[] GetAllPassagens(string cod);
         Passagem[] GetTotalPassagens(string cod);
         Passagem[] GetTotalPassagensWithTimeSpan(string cod,string startDate, string endDate);

@@ -34,20 +34,20 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
             return _context.SaveChanges() > 0;
         }
 
-        public decimal TotalPrizeCalc(Passagem passagem)
+        public string TotalPrizeCalc(Passagem passagem)
         {
             Decimal precoTotal = 0;
 
             if (passagem.DataHoraSaida != null)
             {
-                TimeSpan estadia = passagem.DataHoraSaida - passagem.DataHoraEntrada;
+                TimeSpan estadia = (passagem.DataHoraSaida - passagem.DataHoraEntrada);
                 var garagem = this.GetGaragemByCod(passagem.Garagem).FirstOrDefault();
                 var horasEstadia = estadia.TotalHours;
                 var minutosEstadia = estadia.TotalHours;
 
                 if (passagem.FormaPagamento == "MEN")
                 {
-                    return precoTotal = 0;
+                    return Math.Floor(precoTotal).ToString();
                 }
 
                 else if (horasEstadia > 2 && minutosEstadia > 30)
@@ -68,10 +68,10 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
                     precoTotal = decimal.Parse(garagem.Preco_1aHora);
                 }
 
-                return precoTotal;
+                return Math.Floor(precoTotal).ToString();
             }
 
-            return precoTotal;
+            return Math.Floor(precoTotal).ToString();
         }
 
         public Passagem[] GetAllPassagens(string cod)
@@ -101,10 +101,10 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
         public Passagem[] GetAllPassagensExitLess(string cod)
         {
             IQueryable<Passagem> query = _context.Passagens;
-
+            var dataSaidaNula = DateTime.Parse("01/01/0001");
             query = query.AsNoTracking()
                          .Where(Passagem => Passagem.Garagem == cod)
-                         .Where(Passagem => Passagem.DataHoraSaida == null)
+                         .Where(Passagem => Passagem.DataHoraSaida == dataSaidaNula)
                          .OrderBy(a => a.Id);
 
             return query.ToArray();
@@ -153,8 +153,8 @@ namespace TESTEGARAGENS_DR_WEBAPI.Data
 
             query = query.AsNoTracking()
                          .Where(Passagem => Passagem.Garagem == cod)
-                         .Where(Passagem => Passagem.DataHoraSaida == DataHoraSaida)
-                         .Where(Passagem => Passagem.DataHoraEntrada == DataHoraEntrada)
+                         .Where(Passagem => Passagem.DataHoraSaida <= DataHoraSaida)
+                         .Where(Passagem => Passagem.DataHoraEntrada >= DataHoraEntrada)
                          .OrderBy(a => a.Id);
 
             return query.ToArray();

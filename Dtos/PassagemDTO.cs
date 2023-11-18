@@ -38,7 +38,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Dtos
         /// <summary>
         /// Tempo de estadia calculado entre a entrada e saida do veiculo
         /// </summary>
-        public TimeSpan Estadia { get; set; }
+        public string Estadia { get; set; }
         
     }
 }

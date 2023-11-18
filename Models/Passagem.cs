@@ -13,7 +13,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
                        DateTime dataHoraEntrada,
                        DateTime dataHoraSaida,
                        string formaPagamento,
-                       decimal precoTotal)
+                       string precoTotal)
         {
             this.Id = id;
             this.Garagem = garagem;
@@ -33,13 +33,13 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
         public DateTime DataHoraEntrada { get; set; }
         public DateTime DataHoraSaida { get; set; }
         public string FormaPagamento { get; set; }
-        public Decimal PrecoTotal { get; set; }
+        public string PrecoTotal { get; set; }
 
         internal object GetCurrentTime(DateTime dataHoraEntrada, DateTime dataHoraSaida)
         {
             TimeSpan estadia = dataHoraSaida - dataHoraEntrada;
                 
-            return estadia;
+            return estadia.ToString();
         }
 
     }

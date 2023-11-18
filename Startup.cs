@@ -54,25 +54,26 @@ namespace TESTEGARAGENS_DR_WEBAPI
                              Description = "API de teste Garagens, Estapar e Digital Republic_",
                              License = new Microsoft.OpenApi.Models.OpenApiLicense
                              {
-                                Name = "Digital Republic_",
-                                Url = new Uri("https://www.digitalrepublic.com.br/")
+                                 Name = "Digital Republic_",
+                                 Url = new Uri("https://www.digitalrepublic.com.br/")
                              },
                              Contact = new Microsoft.OpenApi.Models.OpenApiContact
                              {
-                                Name = "Matheus Abreu de Almeida",
-                                Email = "matheus.a.contato@outlook.com",
-                                Url = new Uri("https://github.com/MatheusAbreuAlmeida")
+                                 Name = "Matheus Abreu de Almeida",
+                                 Email = "matheus.a.contato@outlook.com",
+                                 Url = new Uri("https://github.com/MatheusAbreuAlmeida")
                              }
                          }
 
                     );
 
-                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+                    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
-                 options.IncludeXmlComments(xmlCommentsFullPath);
+                    options.IncludeXmlComments(xmlCommentsFullPath);
 
-                });
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

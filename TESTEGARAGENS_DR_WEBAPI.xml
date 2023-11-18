@@ -6,7 +6,7 @@
     <members>
         <member name="T:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController">
             <summary>
-            
+            API DE REGISTRO DE CARROS, CALCULO DE PREÇOS E VALORES DE ESTACIONAMENTOS
             </summary>
         </member>
         <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.#ctor(TESTEGARAGENS_DR_WEBAPI.Data.IRepository,AutoMapper.IMapper)">
@@ -16,18 +16,198 @@
             <param name="repo"></param>
             <param name="mapper"></param>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.Get">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetPassagensByCod(System.String)">
             <summary>
-            Metodo responsavel por retornar todos os registros de passagens
+            Metodo responsavel por retornar todos os registros de passagens por codigo de garagem
             </summary>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetById(System.Int32)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetTotalPassagensbyCod(System.String)">
+            <summary>
+            Metodo responsavel por retornar todos os registros de passagens de veiculos que ainda não deram saida, por codigo de garagem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetTotalPassagensbyCodEmPeriodo(System.String,System.String,System.String)">
+            <summary>
+            Metodo responsavel por retornar todos os registros de passagens de veiculos em determinado periodo, por codigo de garagem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetCarrosSemSaidabyCod(System.String)">
+            <summary>
+            Metodo responsavel por retornar todos os registros de passagens de veiculos que ainda não deram saida, por codigo de garagem
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetById(System.Int32,System.String)">
             <summary>
             Metodo responsavel por retornar o registro da passagem a partir do codigo Id
             </summary>
             <param name="id"></param>
             <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetGaragemByCod(System.String)">
+            <summary>
+             Metodo busca garagem a partir do codigo
+            </summary>
+            <param name="cod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.GetFormaPagamentoByCod(System.String)">
+            <summary>
+            Metodo busca Forma de pagamento a partir do codigo
+            </summary>
+            <param name="cod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PostPassagens(TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO[])">
+            <summary>
+            Metodo de registro de passagens de veiculos pela garagem
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PostGaragens(TESTEGARAGENS_DR_WEBAPI.Models.Garagem[])">
+            <summary>
+            Metodo de registro de dados de varias garagens de uma vez só
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PostFormasPagamento(TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento[])">
+            <summary>
+            Metodo de registro das formas de pagamento
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO)">
+            <summary>
+            Metodo de atualização de dados sobre as passagens de veiculos pela garagem
+            </summary>
+            <param name="id"></param>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutGaragem(System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
+            <summary>
+            Metodo de atualização de dados das garagens
+            </summary>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutFormaPagamento(System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
+            <summary>
+            Metodo de atualização de dados das formas de pagamento
+            </summary>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO)">
+            <summary>
+            Metodo de atualização de dados das passagens
+            </summary>
+            <param name="id"></param>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchGaragem(System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
+            <summary>
+            Metodo de atualização de dados das garagens
+            </summary>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchFormaPagamento(System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
+            <summary>
+            Metodo de atualização de dados das formas de pagamento
+            </summary>
+            <param name="cod"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeletePassagem(System.Int32,System.String)">
+            <summary>
+            Metodo de remoção de dados das passagens dos veiculos pelas garagens
+            </summary>
+            <param name="id"></param>
+            <param name="cod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteGaragem(System.String)">
+            <summary>
+            Metodo de remoção de dados das garagens
+            </summary>
+            <param name="cod"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteFormaPagamento(System.String)">
+            <summary>
+            Metodo de remoção de dados das formas de pagamento
+            </summary>
+            <param name="cod"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TESTEGARAGENS_DR_WEBAPI.Dtos.FormaPagamentoDTO">
+            <summary>
+            Esse é o DTO da Forma de pagamento
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.FormaPagamentoDTO.Id">
+            <summary>
+            Id da forma de pagamento
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.FormaPagamentoDTO.Codigo">
+            <summary>
+            Codigo da forma de pagamento
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.FormaPagamentoDTO.Descricao">
+            <summary>
+            Descrição da forma de pagamento
+            </summary>
+        </member>
+        <member name="T:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO">
+            <summary>
+            Esse é o DTO da garagem do veiculo pela garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Id">
+            <summary>
+            Id da garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Codigo">
+            <summary>
+            Codigo da garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Nome">
+            <summary>
+            Nome da garagem
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Preco_1aHora">
+            <summary>
+            Preço da primeira hora
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Preco_HorasExtra">
+            <summary>
+            Preço das demais horas 
+            </summary>
+        </member>
+        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.GaragemDTO.Preco_Mensalista">
+            <summary>
+            Preço a ser pago pelo mensalista
+            </summary>
         </member>
         <member name="T:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO">
             <summary>

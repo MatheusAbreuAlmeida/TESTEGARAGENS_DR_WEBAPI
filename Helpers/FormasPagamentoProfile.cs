@@ -4,11 +4,11 @@ using TESTEGARAGENS_DR_WEBAPI.Models;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Helpers
 {
-    public class GaragensProfile : Profile
+    public class FormasPagamentoProfile : Profile
     {
-        public GaragensProfile()
+        public FormasPagamentoProfile()
         {
-            CreateMap<Garagem, GaragemDTO>().ReverseMap();
+            CreateMap<FormaPagamento, FormaPagamentoDTO>().ReverseMap();
         }
     }
 }

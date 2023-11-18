@@ -34,6 +34,6 @@ namespace TESTEGARAGENS_DR_WEBAPI.Dtos
 
         public string QuantidadeCarrosTotal { get; set; }
 
-        public decimal ValorPagamentos { get; set; }
+        public string ValorPagamentos { get; set; }
     }
 }

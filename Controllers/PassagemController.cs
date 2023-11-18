@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using TESTEGARAGENS_DR_WEBAPI.Data;
 using TESTEGARAGENS_DR_WEBAPI.Dtos;
 using TESTEGARAGENS_DR_WEBAPI.Models;
@@ -15,7 +16,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
     /// API DE REGISTRO DE CARROS, CALCULO DE PREÇOS E VALORES DE ESTACIONAMENTOS
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class PassagemController : ControllerBase
     {
         private readonly IRepository _repo;
@@ -64,7 +65,11 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         public IActionResult GetTotalPassagensbyCodEmPeriodo (string cod, string startDate, string endDate)
         {
             var result = _repo.GetTotalPassagensWithTimeSpan(cod,startDate,endDate);
-            return Ok(_mapper.Map<IEnumerable<PassagemDTO>>(result));
+            if (result.Length > 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<PassagemDTO>>(result));
+            }
+            return BadRequest("Parametros invalidos na busca, corrija os dados enviados como parametros.");
         }
 
         /// <summary>
@@ -135,17 +140,20 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post(PassagemDTO model)
+        public IActionResult PostPassagens(PassagemDTO[] model)
         {
-             var passagem = _mapper.Map<Passagem>(model);
-             passagem.DataHoraEntrada = DateTime.Parse(model.DataHoraEntrada);
-             passagem.DataHoraSaida = DateTime.Parse(model.DataHoraSaida);
-             passagem.PrecoTotal = Math.Floor(_repo.TotalPrizeCalc(passagem));
+            foreach (var item in model)
+            {
+                var passagem = _mapper.Map<Passagem>(item);
+                passagem.DataHoraEntrada = DateTime.Parse(item.DataHoraEntrada);
+                passagem.DataHoraSaida = DateTime.Parse(item.DataHoraSaida ?? "01/01/0001");
+                passagem.PrecoTotal = _repo.TotalPrizeCalc(passagem);
+                _repo.Add(passagem);
+            }
 
-            _repo.Add(passagem);
             if (_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
+                return Ok("Registros das passagens efetuados com sucesso!");
             }
 
             return BadRequest("Erro no registro!");
@@ -153,22 +161,25 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
 
 
         /// <summary>
-        /// Metodo de registro de dados das garagens
+        /// Metodo de registro de dados de varias garagens de uma vez só
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult PostGaragens(Garagem model)
+        public IActionResult PostGaragens(Garagem[] model)
         {
-             var garagem = _mapper.Map<Garagem>(model);
-
-            _repo.Add(garagem);
-            if (_repo.SaveChanges())
+            foreach (var item in model)
             {
-                return Created($"/api/garagem/{model.Id}", _mapper.Map<GaragemDTO>(garagem));
+                var garagens = _mapper.Map<Garagem>(item);
+                _repo.Add(garagens);
             }
 
-            return BadRequest("Erro no registro da garagem!");
+            if (_repo.SaveChanges())
+            {
+                return Ok("Registros efetuados com sucesso.");
+            }
+
+            return BadRequest("Erro nos registros das formas de pagamento!");
         }
 
 
@@ -178,14 +189,19 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult PostFormasPagamento(FormaPagamento model)
+        public IActionResult PostFormasPagamento(FormaPagamento[] model)
         {
-            var formaPagamento = _mapper.Map<FormaPagamento>(model);
+            foreach (var item in model)
+            {
+                var formaPagamento = _mapper.Map<FormaPagamento>(item);
 
-            _repo.Add(formaPagamento);
+                _repo.Add(formaPagamento);
+
+            }
+
             if (_repo.SaveChanges())
             {
-                return ((IActionResult)formaPagamento);
+                return Ok("Registro efetuados com sucesso.");
             }
 
             return BadRequest("Erro no registro da forma de pagamento!");
@@ -234,7 +250,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
             _repo.Update(garagem);
             if (_repo.SaveChanges())
             {
-                return Created($"/api/formapagamento/{model.Id}", _mapper.Map<Garagem>(garagem));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<Garagem>(garagem));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -258,7 +274,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
             _repo.Update(formaPagamento);
             if (_repo.SaveChanges())
             {
-                return Created($"/api/formapagamento/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -331,7 +347,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
             _repo.Update(formaPagamento);
             if (_repo.SaveChanges())
             {
-                return Created($"/api/formapagamento/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
             }
 
             return BadRequest("Registro não atualizado!");
