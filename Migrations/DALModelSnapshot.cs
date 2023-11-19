@@ -83,7 +83,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Migrations
                     b.Property<DateTime>("DataHoraEntrada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataHoraSaida")
+                    b.Property<DateTime?>("DataHoraSaida")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FormaPagamento")
@@ -92,8 +92,8 @@ namespace TESTEGARAGENS_DR_WEBAPI.Migrations
                     b.Property<string>("Garagem")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrecoTotal")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("PrecoTotal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

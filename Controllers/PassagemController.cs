@@ -94,9 +94,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
             var passagem = _repo.GetPassagemById(id,cod);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
 
-            var passagemDto =_mapper.Map<PassagemDTO>(passagem);
-
-            return Ok(passagemDto);
+            return Ok(passagem);
         }
 
 
@@ -108,12 +106,10 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         [HttpGet("{cod}")]
         public IActionResult GetGaragemByCod(string cod)
         {
-            var passagem = _repo.GetGaragemByCod(cod);
-            if(passagem == null) return BadRequest("Registro não encontrado!!");
+            var garagem = _repo.GetGaragemByCod(cod);
+            if(garagem == null) return BadRequest("Registro não encontrado!!");
 
-            var passagemDto =_mapper.Map<PassagemDTO>(passagem);
-
-            return Ok(passagemDto);
+            return Ok(garagem);
         }
 
 
@@ -125,12 +121,10 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         [HttpGet("{cod}")]   
         public IActionResult GetFormaPagamentoByCod(string cod)
         {
-            var passagem = _repo.GetFormaPagamentoByCod(cod);
-            if(passagem == null) return BadRequest("Registro não encontrado!!");
+            var formaPagamento = _repo.GetFormaPagamentoByCod(cod);
+            if(formaPagamento == null) return BadRequest("Registro não encontrado!!");
 
-            var passagemDto =_mapper.Map<PassagemDTO>(passagem);
-
-            return Ok(passagemDto);
+            return Ok(formaPagamento);
         }
 
 
@@ -140,13 +134,11 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult PostPassagens(PassagemDTO[] model)
+        public IActionResult PostPassagens(Passagem[] model)
         {
             foreach (var item in model)
             {
                 var passagem = _mapper.Map<Passagem>(item);
-                passagem.DataHoraEntrada = DateTime.Parse(item.DataHoraEntrada);
-                passagem.DataHoraSaida = DateTime.Parse(item.DataHoraSaida ?? "01/01/0001");
                 passagem.PrecoTotal = _repo.TotalPrizeCalc(passagem);
                 _repo.Add(passagem);
             }
@@ -216,17 +208,18 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("{id:int}/{cod}")]  
-        public IActionResult PutPassagem(int id,string cod,PassagemDTO model)
+        public IActionResult PutPassagem(int id,string cod,Passagem model)
         {
-            var passagem = _repo.GetPassagemById(id,cod);
+            var passagem = _repo.GetSinglePassagemById(id,cod);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
+            if(id > 0) model.Id = passagem.Id;
+            _mapper.Map(passagem,model);
+            passagem.PrecoTotal = _repo.TotalPrizeCalc(model);
 
-            _mapper.Map(model,passagem);
-
-            _repo.Update(passagem);
+            _repo.Update(model);
             if (_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
+                return Created($"/api/passagem/{id}", _mapper.Map<Passagem>(model));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -236,45 +229,51 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <summary>
         /// Metodo de atualização de dados das garagens
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("{cod}")]  
-        public IActionResult PutGaragem(string cod,Garagem model)
+        public IActionResult PutGaragem(int? id,string cod,Garagem model)
         {
-            var garagem = _repo.GetGaragemByCod(cod);
+            var garagem = _repo.GetSingleGaragemByCod(cod);
             if(garagem == null) return BadRequest("Registro não encontrado!!");
 
+            model.Codigo = cod;
+            if(id > 0) model.Id = garagem.Id;
             _mapper.Map(model,garagem);
 
-            _repo.Update(garagem);
-            if (_repo.SaveChanges())
+            _repo.Update(model);
+            if(_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<Garagem>(garagem));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<Garagem>(model));
             }
 
             return BadRequest("Registro não atualizado!");
         }
-        
+
 
         /// <summary>
         /// Metodo de atualização de dados das formas de pagamento
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("{cod}")]    
-        public IActionResult PutFormaPagamento(string cod,FormaPagamento model)
+        public IActionResult PutFormaPagamento(int? id,string cod,FormaPagamento model)
         {
-            var formaPagamento = _repo.GetFormaPagamentoByCod(cod);
+            var formaPagamento = _repo.GetSingleFormaPagamentoByCod(cod);
             if(formaPagamento == null) return BadRequest("Registro não encontrado!!");
 
+            model.Codigo = cod;
+            if(id > 0){model.Id = (int)id;}
             _mapper.Map(model,formaPagamento);
 
-            _repo.Update(formaPagamento);
-            if (_repo.SaveChanges())
+            _repo.Update(model);
+            if(_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(model));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -289,41 +288,45 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPatch("{id:int}/{cod}")]  
-        public IActionResult PatchPassagem(int id,string cod,PassagemDTO model)
+        public IActionResult PatchPassagem(int id,string cod,Passagem model)
         {
-            var passagem = _repo.GetPassagemById(id,cod);
+            model.Id = id;
+            var passagem = _repo.GetSinglePassagemById(id, cod);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
+            _mapper.Map(passagem, model);
+            passagem.PrecoTotal = _repo.TotalPrizeCalc(model);
 
-            _mapper.Map(model,passagem);
-
-            _repo.Update(passagem);
-            if (_repo.SaveChanges())
+            _repo.Update(model);
+            if(_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<PassagemDTO>(passagem));
+                return Created($"/api/passagem/{id}", _mapper.Map<Passagem>(model));
             }
 
             return BadRequest("Registro não atualizado!");
         }
-        
+
 
         /// <summary>
         /// Metodo de atualização de dados das garagens
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPatch("{cod}")]  
-        public IActionResult PatchGaragem(string cod,Garagem model)
+        public IActionResult PatchGaragem(int id,string cod,Garagem model)
         {
-            var garagem = _repo.GetGaragemByCod(cod);
+            var garagem = _repo.GetSingleGaragemByCod(cod);
             if(garagem == null) return BadRequest("Registro não encontrado!!");
 
-            _mapper.Map(model,garagem);
+            model.Codigo = cod;
+            model.Id = garagem.Id;
+            _mapper.Map(model, garagem);
 
-            _repo.Update(garagem);
-            if (_repo.SaveChanges())
+            _repo.Update(model);
+            if(_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<PassagemDTO>(garagem));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<Garagem>(model));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -333,21 +336,24 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <summary>
         /// Metodo de atualização de dados das formas de pagamento
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPatch("{cod}")]  
-        public IActionResult PatchFormaPagamento(string cod,FormaPagamento model)
+        public IActionResult PatchFormaPagamento(int id,string cod,FormaPagamento model)
         {
-            var formaPagamento = _repo.GetFormaPagamentoByCod(cod);
+            var formaPagamento = _repo.GetSingleFormaPagamentoByCod(cod);
             if(formaPagamento == null) return BadRequest("Registro não encontrado!!");
 
-            _mapper.Map(model,formaPagamento);
+            model.Codigo = cod;
+            model.Id = formaPagamento.Id;
+            _mapper.Map(model, formaPagamento);
 
-            _repo.Update(formaPagamento);
-            if (_repo.SaveChanges())
+            _repo.Update(model);
+            if(_repo.SaveChanges())
             {
-                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(formaPagamento));
+                return Created($"/api/passagem/{model.Id}", _mapper.Map<FormaPagamento>(model));
             }
 
             return BadRequest("Registro não atualizado!");
@@ -363,11 +369,11 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         [HttpDelete("{id:int}/{cod}")]  
         public IActionResult DeletePassagem(int id,string cod)
         {
-            var passagem = _repo.GetPassagemById(id,cod);
+            var passagem = _repo.GetSinglePassagemById(id,cod);
             if(passagem == null) return BadRequest("Registro não encontrado!!");
 
             _repo.Delete(passagem);
-            if (_repo.SaveChanges())
+            if(_repo.SaveChanges())
             {
                 return Ok("Registro deletado!");
             }
@@ -379,16 +385,18 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <summary>
         /// Metodo de remoção de dados das garagens
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <returns></returns>
         [HttpDelete("{cod}")]
-        public IActionResult DeleteGaragem(string cod)
+        public IActionResult DeleteGaragem(int id, string cod)
         {
-            var garagem = _repo.GetGaragemByCod(cod);
-            if (garagem == null) return BadRequest("Registro de garagem não encontrado!!");
+            var garagem = _repo.GetSingleGaragemByCod(cod);
+            if(garagem == null) return BadRequest("Registro de garagem não encontrado!!");
+            garagem.Id = id;
 
             _repo.Delete(garagem);
-            if (_repo.SaveChanges())
+            if(_repo.SaveChanges())
             {
                 return Ok("Registro de garagem deletado!");
             }
@@ -400,16 +408,18 @@ namespace TESTEGARAGENS_DR_WEBAPI.Controllers
         /// <summary>
         /// Metodo de remoção de dados das formas de pagamento
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="cod"></param>
         /// <returns></returns>
         [HttpDelete("{cod}")]
-        public IActionResult DeleteFormaPagamento(string cod)
+        public IActionResult DeleteFormaPagamento(int id,string cod)
         {
-            var formaPagamento = _repo.GetGaragemByCod(cod);
-            if (formaPagamento == null) return BadRequest("Registro de forma de pagamento não encontrado!!");
+            var formaPagamento = _repo.GetSingleFormaPagamentoByCod(cod);
+            if(formaPagamento == null) return BadRequest("Registro de forma de pagamento não encontrado!!");
+            formaPagamento.Id = id;
 
             _repo.Delete(formaPagamento);
-            if (_repo.SaveChanges())
+            if(_repo.SaveChanges())
             {
                 return Ok("Registro de forma de pagamento deletado!");
             }

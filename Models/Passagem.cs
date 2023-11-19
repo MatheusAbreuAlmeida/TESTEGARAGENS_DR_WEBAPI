@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TESTEGARAGENS_DR_WEBAPI.Models
 {
@@ -13,7 +14,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
                        DateTime dataHoraEntrada,
                        DateTime dataHoraSaida,
                        string formaPagamento,
-                       string precoTotal)
+                       decimal precoTotal)
         {
             this.Id = id;
             this.Garagem = garagem;
@@ -31,16 +32,9 @@ namespace TESTEGARAGENS_DR_WEBAPI.Models
         public string CarroMarca { get; set; }
         public string CarroModelo { get; set; }
         public DateTime DataHoraEntrada { get; set; }
-        public DateTime DataHoraSaida { get; set; }
+        public Nullable<DateTime> DataHoraSaida { get; set; }
         public string FormaPagamento { get; set; }
-        public string PrecoTotal { get; set; }
-
-        internal object GetCurrentTime(DateTime dataHoraEntrada, DateTime dataHoraSaida)
-        {
-            TimeSpan estadia = dataHoraSaida - dataHoraEntrada;
-                
-            return estadia.ToString();
-        }
+        public Nullable<decimal> PrecoTotal { get; set; }
 
     }
 }

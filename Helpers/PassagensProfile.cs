@@ -8,12 +8,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Helpers
     {
         public PassagensProfile()
         {
-            CreateMap<Passagem, PassagemDTO>()
-                .ForMember(
-                    dest => dest.Estadia,
-                    opt => opt.MapFrom(src => src.GetCurrentTime(src.DataHoraEntrada, (System.DateTime)src.DataHoraSaida))
-                );
-            CreateMap<PassagemDTO, Passagem>();
+            CreateMap<Passagem, PassagemDTO>().ReverseMap();
         }
     }
 }

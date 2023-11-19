@@ -49,9 +49,9 @@ namespace TESTEGARAGENS_DR_WEBAPI.Migrations
                     CarroMarca = table.Column<string>(nullable: true),
                     CarroModelo = table.Column<string>(nullable: true),
                     DataHoraEntrada = table.Column<DateTime>(nullable: false),
-                    DataHoraSaida = table.Column<DateTime>(nullable: false),
+                    DataHoraSaida = table.Column<DateTime>(nullable: true),
                     FormaPagamento = table.Column<string>(nullable: true),
-                    PrecoTotal = table.Column<string>(nullable: true)
+                    PrecoTotal = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -26,7 +26,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Dtos
         /// <summary>
         /// Data de saida do carro na garagem
         /// </summary>
-        public string DataHoraSaida { get; set; }
+        public string? DataHoraSaida { get; set; }
         /// <summary>
         /// Forma de pagamento registrado 
         /// </summary>
@@ -34,11 +34,7 @@ namespace TESTEGARAGENS_DR_WEBAPI.Dtos
         /// <summary>
         /// Preço a ser pago pela estadia do veiculo 
         /// </summary>
-        public string PrecoTotal { get; set; }
-        /// <summary>
-        /// Tempo de estadia calculado entre a entrada e saida do veiculo
-        /// </summary>
-        public string Estadia { get; set; }
+        public decimal PrecoTotal { get; set; }
         
     }
 }

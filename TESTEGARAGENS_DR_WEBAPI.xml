@@ -61,7 +61,7 @@
             <param name="cod"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PostPassagens(TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO[])">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PostPassagens(TESTEGARAGENS_DR_WEBAPI.Models.Passagem[])">
             <summary>
             Metodo de registro de passagens de veiculos pela garagem
             </summary>
@@ -82,7 +82,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Models.Passagem)">
             <summary>
             Metodo de atualização de dados sobre as passagens de veiculos pela garagem
             </summary>
@@ -91,23 +91,25 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutGaragem(System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutGaragem(System.Nullable{System.Int32},System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
             <summary>
             Metodo de atualização de dados das garagens
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutFormaPagamento(System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PutFormaPagamento(System.Nullable{System.Int32},System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
             <summary>
             Metodo de atualização de dados das formas de pagamento
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchPassagem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Models.Passagem)">
             <summary>
             Metodo de atualização de dados das passagens
             </summary>
@@ -116,18 +118,20 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchGaragem(System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchGaragem(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Models.Garagem)">
             <summary>
             Metodo de atualização de dados das garagens
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchFormaPagamento(System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.PatchFormaPagamento(System.Int32,System.String,TESTEGARAGENS_DR_WEBAPI.Models.FormaPagamento)">
             <summary>
             Metodo de atualização de dados das formas de pagamento
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <param name="model"></param>
             <returns></returns>
@@ -140,17 +144,19 @@
             <param name="cod"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteGaragem(System.String)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteGaragem(System.Int32,System.String)">
             <summary>
             Metodo de remoção de dados das garagens
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <returns></returns>
         </member>
-        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteFormaPagamento(System.String)">
+        <member name="M:TESTEGARAGENS_DR_WEBAPI.Controllers.PassagemController.DeleteFormaPagamento(System.Int32,System.String)">
             <summary>
             Metodo de remoção de dados das formas de pagamento
             </summary>
+            <param name="id"></param>
             <param name="cod"></param>
             <returns></returns>
         </member>
@@ -247,11 +253,6 @@
         <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.PrecoTotal">
             <summary>
             Preço a ser pago pela estadia do veiculo 
-            </summary>
-        </member>
-        <member name="P:TESTEGARAGENS_DR_WEBAPI.Dtos.PassagemDTO.Estadia">
-            <summary>
-            Tempo de estadia calculado entre a entrada e saida do veiculo
             </summary>
         </member>
     </members>
